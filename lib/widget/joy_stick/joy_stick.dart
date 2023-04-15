@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:amuse/schemes/color.dart';
-import 'package:amuse/screen/game.dart';
+import 'package:amuse/screen/game_screen/game_screen.dart';
 import 'package:amuse/widget/joy_stick/enum_direction.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 class JoyStickWidget extends StatefulWidget {
@@ -21,7 +22,17 @@ class _JoyStickWidgetState extends State<JoyStickWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Game())),
+      onLongPress: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Scaffold(
+            appBar: AppBar(),
+            body: GameWidget(
+              game: AmuseGame(),
+            ),
+          ),
+        ),
+      ),
       child: SizedBox(
         width: 120,
         height: 120,
