@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+extension AmuseColor on BuildContext {
+  ColorScheme get color => Theme.of(this).colorScheme;
+}
+
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFFA737F1),

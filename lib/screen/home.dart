@@ -1,3 +1,8 @@
+import 'package:amuse/schemes/color.dart';
+import 'package:amuse/screen/amuse_nation_game.dart';
+import 'package:amuse/widget/joy_stick/enum_direction.dart';
+import 'package:amuse/widget/joy_stick/joy_stick.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,39 +15,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final AmuseNationGame game = AmuseNationGame();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:\n안녕하세요 반갑습니다 하나씩 올라가는 계산기 빠바밤',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+        appBar: AppBar(
+            backgroundColor: context.color.background,
+            title: Text(widget.title, style: TextStyle(color: context.color.primary))),
+        body: Stack(
+          children: [
+            GameWidget(game: game),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: JoyStickWidget(onDirectionChanged: onJoyStickDirectionChanged),
+              ),
+            )
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        ));
+  }
+
+  void onJoyStickDirectionChanged(final Direction direction) {
+    game.onJoyStickDirectionChanged(direction);
   }
 }
